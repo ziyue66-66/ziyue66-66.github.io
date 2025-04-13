@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>综合网页设计</title>
+    <style>
+        /* 全局样式 */
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        /* 按钮容器样式，固定在顶部 */
+        .button-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button-container button:hover {
+            background-color: #1976d2;
+        }
+
+        /* 内容容器样式，留出顶部按钮的空间 */
+        .content-container {
+            margin-top: 60px;
+            padding: 20px;
+        }
+
+        /* 第一部分：定位展示知识点视图 - 已调整避免重叠 */
+        .knowledge-container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            margin: 0 auto 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .center-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            background-image: url('https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .knowledge-point {
+            position: absolute;
+            width: 220px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .point-1 {
+            top: 50px;
+            left: 50px;
+            z-index: 3;
+            background-color: #e3f2fd;
+        }
+
+        .point-2 {
+            top: 50px;
+            right: 50px;
+            z-index: 2;
+            background-color: #fff8e1;
+        }
+
+        .point-3 {
+            bottom: 50px;
+            left: 50px;
+            z-index: 1;
+            background-color: #f1f8e9;
+        }
+
+        .knowledge-point h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .knowledge-point ul {
+            padding-left: 20px;
+        }
+
+        .knowledge-point li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        /* 第二部分：新闻资讯网页 - 已移除图片 */
+        .news-container {
+            width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .news-header h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        .news-content {
+            display: flex;
+        }
+
+        .main-news {
+            flex: 2;
+            padding-right: 20px;
+        }
+
+        .hot-news {
+            flex: 1;
+            border-left: 1px solid #eee;
+            padding-left: 20px;
+        }
+
+        .news-item {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item h4 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .news-images {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            height: 80px;
+            background-color: #f9f9f9;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .news-images img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        .author-info {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .hot-news-item {
+            margin-bottom: 20px;
+        }
+
+        .hot-news-item a {
+            display: block;
+            color: #2196f3;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .hot-news-item a:hover {
+            text-decoration: underline;
+        }
+
+        .hot-news-img {
+            height: 100px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #999;
+            border-radius: 4px;
+        }
+
+        .hot-news-img img {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 4px;
+        }
+
+        /* 隐藏默认内容 */
+        #knowledge,
+        #news {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button-container">
+        <button onclick="showSection('knowledge')">知识点展示</button>
+        <button onclick="showSection('news')">新闻资讯</button>
+    </div>
+    <div class="content-container">
+        <!-- 第一部分：定位展示知识点视图 - 已调整布局 -->
+        <div id="knowledge" class="knowledge-container">
+            <div class="center-icon"></div>
+
+            <div class="knowledge-point point-1">
+                <h3>HTML知识点</h3>
+                <ul>
+                    <li>HTML文档结构</li>
+                    <li>常用标签使用</li>
+                    <li>表单元素</li>
+                    <li>语义化标签</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-point point-2">
+                <h3>CSS知识点</h3>
+                <ul>
+                    <li>选择器优先级</li>
+                    <li>盒模型</li>
+                    <li>定位方式</li>
+                    <li>Flex布局</li>
+                </ul>
+            </div>
+
+            <div class="knowledge-point point-3">
+                <h3>JavaScript知识点</h3>
+                <ul>
+                    <li>DOM操作</li>
+                    <li>事件处理</li>
+                    <li>AJAX请求</li>
+                    <li>ES6特性</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 第二部分：新闻资讯网页 - 已移除图片 -->
+        <div id="news" class="news-container">
+            <div class="news-header">
+                <h2>最新资讯</h2>
+                <hr>
+            </div>
+
+            <div class="news-content">
+                <div class="main-news">
+                    <div class="news-item">
+                        <h4>人工智能技术取得重大突破</h4>
+                        <div class="news-images">
+                            <img src="https://images.pexels.com/photos/7858448/pexels-photo-7858448.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="人工智能技术取得重大突破">
+                        </div>
+                        <p class="author-info">作者：科技前沿 发布时间：2023-06-15</p>
+                    </div>
+
+                    <div class="news-item">
+                        <h4>全球气候变化峰会召开</h4>
+                        <div class="news-images">
+                            <img src="https://images.pexels.com/photos/534151/pexels-photo-534151.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="全球气候变化峰会召开">
+                        </div>
+                        <p class="author-info">作者：环境观察 发布时间：2023-06-14</p>
+                    </div>
+
+                    <div class="news-item">
+                        <h4>新能源汽车市场持续增长</h4>
+                        <div class="news-images">
+                            <img src="https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="新能源汽车市场持续增长">
+                        </div>
+                        <p class="author-info">作者：汽车周刊 发布时间：2023-06-13</p>
+                    </div>
+                </div>
+
+                <div class="hot-news">
+                    <h4>热门推荐</h4>
+                    <hr>
+
+                    <div class="hot-news-item">
+                        <a href="#">5G技术将如何改变我们的生活</a>
+                        <div class="hot-news-img">
+                            <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="5G技术将如何改变我们的生活">
+                        </div>
+                    </div>
+
+                    <div class="hot-news-item">
+                        <a href="#">元宇宙概念持续火热</a>
+                        <div class="hot-news-img">
+                            <img src="https://images.pexels.com/photos/904616/pexels-photo-904616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="元宇宙概念持续火热">
+                        </div>
+                    </div>
+
+                    <div class="hot-news-item">
+                        <a href="#">量子计算机研发新进展</a>
+                        <div class="hot-news-img">
+                            <img src="https://images.pexels.com/photos/1025469/pexels-photo-1025469.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                                alt="量子计算机研发新进展">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showSection(sectionId) {
+            const knowledgeSection = document.getElementById('knowledge');
+            const newsSection = document.getElementById('news');
+
+            if (sectionId === 'knowledge') {    
+                knowledgeSection.style.display = 'block';
+                newsSection.style.display = 'none';
+            } else if (sectionId === 'news') {
+                newsSection.style.display = 'block';
+                knowledgeSection.style.display = 'none';
+            }
+        }
+
+        // 默认显示知识点部分
+        showSection('knowledge');
+    </script>
+</body>
+
+</html>
+     
